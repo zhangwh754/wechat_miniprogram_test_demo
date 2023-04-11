@@ -1,4 +1,0 @@
-/**app.wxss**/
-.container {
-  color: blue !important;
-} 
