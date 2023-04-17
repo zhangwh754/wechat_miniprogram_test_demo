@@ -3,10 +3,6 @@ export const behavior = Behavior({
     addGlobalClass: true,
   },
   lifetimes: {
-    created() {
-      let num = 0
-      num += 1
-      console.log('behavior')
-    },
+    created() {},
   },
 })

@@ -11,8 +11,12 @@ Component({
   },
 
   lifetimes: {
-    created() {},
+    created: async function () {
+      console.log(1)
+    },
   },
 
-  methods: {},
+  methods: {
+    foo() {},
+  },
 })

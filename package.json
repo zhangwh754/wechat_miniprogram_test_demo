@@ -1,10 +1,20 @@
 {
   "scripts": {
-    "lint": "prettier --write ./pages"
+    "lint": "prettier --write ./pages ./utils",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.1",
     "prettier": "^2.8.7"
+  },
+  "dependencies": {
+    "miniprogram-api-promise": "^1.0.4"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
   }
 }
