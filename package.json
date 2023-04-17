@@ -14,7 +14,7 @@
     "miniprogram-api-promise": "^1.0.4"
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix",
+    "*.js": "eslint --fix",
     "*.{js,css,md}": "prettier --write"
   }
 }
