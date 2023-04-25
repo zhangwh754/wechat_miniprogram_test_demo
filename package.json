@@ -5,6 +5,7 @@
   "devDependencies": {
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
+    "miniprogram-api-typings": "^3.9.1",
     "prettier": "^2.8.7"
   }
 }

@@ -1,4 +1,2 @@
 <!--index.wxml-->
-<view class="container">
-  Weixin
-</view>
+<view class="container" bind:tap="toForm"> Hello World</view>
