@@ -1,10 +1,2 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="title">{{msg}}</view>
-
-  <view class="list">
-    <view class="item" wx:for="{{list}}" wx:key="*this">
-      <view>{{item.msg}}</view>
-    </view>
-  </view>
-</view>
+<view class="container" bind:tap="toForm"> Hello World</view>

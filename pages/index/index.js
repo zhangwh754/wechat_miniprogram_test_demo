@@ -1,21 +1,17 @@
-import { behavior } from '../../behaviors/behaviors.js'
+import { emitter } from '../../utils/index.js'
 
-// index.js
-const app = getApp()
+Page({
+  onShow() {
+    this.age = 18 + Math.floor(Math.random() * 100 + 1)
 
-Component({
-  behaviors: [behavior],
-
-  data: {
-    msg: 'Hello',
-    list: [],
+    emitter.emit('foo', { name: 'zwh', age: this.age })
   },
 
-  lifetimes: {
-    created: async function () {},
-  },
+  onUnload() {},
 
-  methods: {
-    foo() {},
+  toForm() {
+    wx.redirectTo({
+      url: '../form/form',
+    })
   },
 })
