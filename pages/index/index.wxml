@@ -1,4 +1,10 @@
 <!--index.wxml-->
 <view class="container">
-  Weixin1
+  <view class="title">{{msg}}</view>
+
+  <view class="list">
+    <view class="item" wx:for="{{list}}" wx:key="*this">
+      <view>{{item.msg}}</view>
+    </view>
+  </view>
 </view>

@@ -7,13 +7,12 @@ Component({
   behaviors: [behavior],
 
   data: {
-    name: 'Hello',
+    msg: 'Hello',
+    list: [],
   },
 
   lifetimes: {
-    created: async function () {
-      console.log(1)
-    },
+    created: async function () {},
   },
 
   methods: {
