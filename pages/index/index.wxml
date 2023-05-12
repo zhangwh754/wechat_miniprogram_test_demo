@@ -1,2 +1,9 @@
 <!--index.wxml-->
-<view class="container" bind:tap="toForm"> Hello World</view>
+<navigation-bar background="#FFFFFF" title="首页" color="#000" />
+
+<view class="container">
+  <h2>Hello World</h2>
+  <view class="box">
+    <button bind:tap="handleTap">handleTap</button>
+  </view>
+</view>

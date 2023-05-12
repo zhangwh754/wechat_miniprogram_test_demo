@@ -1,11 +1,13 @@
 {
-  "pages": ["pages/index/index", "pages/form/form"],
+  "pages": [
+    "pages/index/index",
+    "pages/signature/signature"
+  ],
   "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Weixin",
-    "navigationBarTextStyle": "black"
+    "navigationStyle": "custom"
   },
-  "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "navigation-bar": "./components/navigation-bar/navigation-bar"
+  }
 }

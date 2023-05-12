@@ -1,0 +1,15 @@
+<!--pages/signature/signature.wxml-->
+
+<navigation-bar background="#FFFFFF" title="手写签名" color="#000" />
+
+<view class="container">
+  <view class="title"> 备注:签名仅用于窃电举报奖励确认 </view>
+  <view class="canvas__view">
+    <canvas class="canvas" type="2d" id="myCanvas"></canvas>
+  </view>
+  <view class="buttons">
+    <button type="info" class="button danger" bindtap="exit">退出</button>
+    <button type="info" class="button warn" bindtap="clear">重写</button>
+    <button type="info" class="button success" bindtap="export">确认</button>
+  </view>
+</view>

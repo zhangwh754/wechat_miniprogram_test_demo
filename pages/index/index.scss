@@ -2,9 +2,17 @@
 Page {
   background-color: #ccc;
   margin: 30rpx;
+}
 
-  .container {
-    color: red;
-    font-size: 40rpx;
+.container {
+  color: red;
+  font-size: 40rpx;
+
+  .box {
+    width: 400rpx;
+
+    button {
+      border: 1px solid red;
+    }
   }
 }

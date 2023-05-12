@@ -1,17 +1,13 @@
-import { emitter } from '../../utils/index.js'
+Component({
+  data: {},
 
-Page({
-  onShow() {
-    this.age = 18 + Math.floor(Math.random() * 100 + 1)
+  methods: {
+    onShow() {
+      console.log('show')
+    },
 
-    emitter.emit('foo', { name: 'zwh', age: this.age })
-  },
-
-  onUnload() {},
-
-  toForm() {
-    wx.redirectTo({
-      url: '../form/form',
-    })
+    handleTap() {
+      console.log(1)
+    },
   },
 })
