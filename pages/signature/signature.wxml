@@ -8,6 +8,6 @@
 <sign-input
   wx:if="{{isSignInputShow}}"
   title="签名仅用于窃电举报奖励"
-  bind:sign-img="handle"
+  bind:sign-img="handleSignImg"
   bind:close="toggleSignInputShow"
 ></sign-input>

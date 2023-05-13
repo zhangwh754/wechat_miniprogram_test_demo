@@ -1,12 +1,14 @@
+import { getSystemInfo } from '../../utils/index.js'
+
 // pages/signature/signature.js
 Component({
   data: {
     isSignInputShow: false,
-
-    resultArr: [],
   },
 
   methods: {
+    onLoad() {},
+
     handleTap() {
       this.toggleSignInputShow()
     },
@@ -17,17 +19,46 @@ Component({
       })
     },
 
-    handle(e) {
+    async handleSignImg(e) {
       this.toggleSignInputShow()
 
-      console.log(e.detail)
+      try {
+        await this.uploadFile(e.detail)
+        wx.showToast({
+          title: '上传图片成功',
+          icon: 'none',
+        })
+      } catch (error) {
+        wx.showToast({
+          title: error,
+          icon: 'none',
+        })
+      }
+    },
 
-      const { resultArr } = this.data
+    uploadFile(temImgUrl) {
+      return new Promise((resolve, reject) => {
+        wx.uploadFile({
+          url: 'http://192.168.10.104:3000/upload',
+          filePath: temImgUrl,
+          name: 'file',
+          success(res) {
+            const data = JSON.parse(res.data)
 
-      resultArr.push(e.detail)
-
-      this.setData({
-        resultArr,
+            if (data.code !== 200) {
+              reject(data.msg)
+            } else {
+              resolve(data.msg)
+            }
+          },
+          fail() {
+            wx.showToast({
+              title: '上传失败',
+              icon: 'none',
+              duration: 2000,
+            })
+          },
+        })
       })
     },
   },

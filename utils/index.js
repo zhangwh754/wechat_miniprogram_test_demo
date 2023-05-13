@@ -1,6 +1,5 @@
-import wxp from './promisefy'
 import request from './request'
 import { formatTime } from './formatTime'
-import {} from './wx-apis'
+import { getSystemInfo } from './getSystemInfo'
 
-export { wxp, request, formatTime }
+export { request, formatTime, getSystemInfo }

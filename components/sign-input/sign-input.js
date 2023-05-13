@@ -1,3 +1,5 @@
+import { getSystemInfo } from '../../utils/index.js'
+
 // components/sigin-input/sigin-input.js
 Component({
   options: {
@@ -20,30 +22,21 @@ Component({
     width: 0,
     height: 0,
 
-    posX: 0,
-    posY: 0,
+    canvasPosX: 0,
+    canvasPosY: 0,
   },
 
   lifetimes: {
     attached() {
       // 高度计算
-      wx.getSystemInfo({
-        success: res => {
-          const ios = !!(res.system.toLowerCase().search('ios') + 1)
+      const res = getSystemInfo()
 
-          const screenWidth = res.screenWidth
-          const screenHeight = res.screenHeight
+      this.dpr = res.dpr
 
-          const navigationBarHeight = ios ? 44 : 48
-
-          this.dpr = res.pixelRatio
-
-          this.setData({
-            navigationBarHeight: res.statusBarHeight + navigationBarHeight,
-            width: screenWidth - 50,
-            height: screenHeight - navigationBarHeight - res.statusBarHeight,
-          })
-        },
+      this.setData({
+        width: res.safeWidth - 50,
+        height: res.safeHeight,
+        navigationBarHeight: res.navigationBarHeight + res.statusBarHeight,
       })
     },
     ready() {
@@ -64,6 +57,10 @@ Component({
 
           canvas.width = res[0].width * this.dpr
           canvas.height = res[0].height * this.dpr
+
+          ctx.strokeStyle = '#000000'
+          ctx.lineWidth = 2
+          ctx.font = '20px Arial'
           ctx.scale(this.dpr, this.dpr)
 
           this.setData({
@@ -83,22 +80,42 @@ Component({
     // 开始签名
     _start(e) {
       this.setData({
-        posX: e.changedTouches[0].x,
-        posY: e.changedTouches[0].y,
+        canvasPosX: e.changedTouches[0].x,
+        canvasPosY: e.changedTouches[0].y,
       })
       this.data.canvasContext.lineWidth = 5
-      this.data.canvasContext.moveTo(this.data.posX, this.data.posY)
+      this.data.canvasContext.moveTo(this.data.canvasPosX, this.data.canvasPosY)
     },
 
     // 开始移动
     _move(e) {
-      const { canvasContext, posX, posY } = this.data
+      const { canvasContext, canvasPosX, canvasPosY } = this.data
+      const { x: curX, y: curY } = e.changedTouches[0]
+
+      const deltaX = Math.abs(canvasPosX - curX)
+      const deltaY = Math.abs(canvasPosY - curY)
+
+      // 相差大于3像素的时候作二阶贝塞尔曲线
+      if (deltaX >= 3 || deltaY >= 3) {
+        // 前后两点中心点
+        const centerX = (canvasPosX + curX) / 2
+        const centerY = (canvasPosY + curY) / 2
+
+        //这里以前一点作为控制点，中心点作为终点，起始点为上一次的中点，很流畅啊！
+        canvasContext.quadraticCurveTo(canvasPosX, canvasPosY, centerX, centerY)
+        canvasContext.stroke()
+
+        this.setData({
+          canvasPosX: curX,
+          canvasPosY: curY,
+        })
+      }
 
       this.setData({
-        posX: e.changedTouches[0].x,
-        posY: e.changedTouches[0].y,
+        canvasPosX: e.changedTouches[0].x,
+        canvasPosY: e.changedTouches[0].y,
       })
-      canvasContext.lineTo(posX, posY)
+      canvasContext.lineTo(canvasPosX, canvasPosY)
       canvasContext.stroke()
     },
 
@@ -112,25 +129,28 @@ Component({
     _clear() {
       const { canvasContext, width, height } = this.data
       canvasContext.clearRect(0, 0, width, height)
+
+      canvasContext.strokeStyle = '#000000'
+      canvasContext.lineWidth = 2
+      canvasContext.font = '20px Arial'
+
       canvasContext.beginPath()
     },
 
     _confirm() {
       wx.canvasToTempFilePath({
-        x: 0,
-        y: 0,
-        width: this.data.width,
-        height: this.data.height,
         destWidth: this.data.width,
         destHeight: this.data.height,
         canvas: this.data.canvas,
         success: res => {
           this.triggerEvent('sign-img', res.tempFilePath)
         },
-        fail() {
+        fail(error) {
           console.log(error)
           wx.showToast({
             title: '图片生成失败',
+            icon: 'none',
+            duration: 1000,
           })
         },
       })
