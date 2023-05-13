@@ -1,4 +1,6 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "sign-input": "../../components/sign-input/sign-input"
+  },
   "disableScroll": true
 }
