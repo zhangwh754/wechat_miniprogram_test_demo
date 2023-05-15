@@ -12,6 +12,8 @@ Component({
   },
 
   data: {
+    show: true,
+
     // 画布控制器
     canvasContext: null,
 
@@ -58,9 +60,6 @@ Component({
           canvas.width = res[0].width * this.dpr
           canvas.height = res[0].height * this.dpr
 
-          ctx.strokeStyle = '#000000'
-          ctx.lineWidth = 2
-          ctx.font = '20px Arial'
           ctx.scale(this.dpr, this.dpr)
 
           this.setData({
@@ -74,7 +73,14 @@ Component({
     _leave() {
       this._clear()
 
-      this.triggerEvent('close')
+      this.setData(
+        {
+          show: false,
+        },
+        () => {
+          this.triggerEvent('close')
+        }
+      )
     },
 
     // 开始签名
@@ -122,17 +128,20 @@ Component({
     _cancel() {
       this._clear()
 
-      this.triggerEvent('close')
+      this.setData(
+        {
+          show: false,
+        },
+        () => {
+          this.triggerEvent('close')
+        }
+      )
     },
 
     // 清空画布
     _clear() {
       const { canvasContext, width, height } = this.data
       canvasContext.clearRect(0, 0, width, height)
-
-      canvasContext.strokeStyle = '#000000'
-      canvasContext.lineWidth = 2
-      canvasContext.font = '20px Arial'
 
       canvasContext.beginPath()
     },
@@ -143,7 +152,14 @@ Component({
         destHeight: this.data.height,
         canvas: this.data.canvas,
         success: res => {
-          this.triggerEvent('sign-img', res.tempFilePath)
+          this.setData(
+            {
+              show: false,
+            },
+            () => {
+              this.triggerEvent('sign-img', res.tempFilePath)
+            }
+          )
         },
         fail(error) {
           console.log(error)

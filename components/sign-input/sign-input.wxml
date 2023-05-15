@@ -1,5 +1,5 @@
 <!--components/sigin-input/sigin-input.wxml-->
-<page-container show="{{true}}" custom-style="height: 100%;" bind:afterleave="_leave">
+<page-container show="{{show}}" custom-style="height: 100%;" bind:afterleave="_leave">
   <view class="page" style="height: {{height}}px;top: {{navigationBarHeight}}px">
     <canvas
       class="canvas"
