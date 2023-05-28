@@ -1,6 +1,5 @@
 import { BASE_URL } from '../config/index.js'
-
-const globalData = getApp().globalData
+import { generateLog } from './log.js'
 
 /**
  * @typedef {Object} requestReturns
@@ -40,12 +39,25 @@ const request = function (title, url, data) {
         title && wx.hideLoading()
         if (res.statusCode === 200) {
           resolve(res.data)
+
+          if (res.data.Tag != 1) {
+            wx.showToast({
+              title: res.data.Message,
+              icon: 'none',
+            })
+            generateLog(data, res.data.Message, url)
+          }
         } else {
           wx.showToast({
             title: '请求错误，请稍后重试！',
             icon: 'none',
           })
-          reject('请求成功，返回失败')
+          wx.showToast({
+            title: res.data.Message,
+            icon: 'none',
+          })
+          generateLog(data, '客户端异常', url)
+          reject('客户端异常')
         }
       },
       fail: () => {

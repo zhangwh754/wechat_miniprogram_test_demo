@@ -1,3 +1,5 @@
+import { request } from '../../utils/index.js'
+
 Component({
   data: {},
 
@@ -7,7 +9,10 @@ Component({
     },
 
     handleTap() {
-      console.log(1)
+      request('加载中', 'test', {
+        str: 10,
+        // str: 'aaa',
+      })
     },
   },
 })
