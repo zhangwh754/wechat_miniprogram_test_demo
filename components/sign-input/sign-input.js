@@ -1,6 +1,8 @@
-import { getSystemInfo } from '../../utils/index.js'
+import { getSystemInfo } from '../../utils/getSystemInfo.js'
 
-// components/sigin-input/sigin-input.js
+let moveCount = 0
+
+// components/sign-input/sign-input.js
 Component({
   options: {
     pureDataPattern: /^canvas/, // 指定所有 _ 开头的数据字段为纯数据字段
@@ -43,12 +45,19 @@ Component({
     },
     ready() {
       this._initContext()
+
+      wx.showModal({
+        content: '请横置屏幕签名',
+        showCancel: false,
+      })
     },
   },
 
   methods: {
     // 初始化canvas画布
     _initContext() {
+      moveCount = 0
+
       const query = this.createSelectorQuery()
       query
         .select(`#${this.data.id}`)
@@ -95,6 +104,7 @@ Component({
 
     // 开始移动
     _move(e) {
+      moveCount++
       const { canvasContext, canvasPosX, canvasPosY } = this.data
       const { x: curX, y: curY } = e.changedTouches[0]
 
@@ -115,14 +125,14 @@ Component({
           canvasPosX: curX,
           canvasPosY: curY,
         })
+      } else {
+        this.setData({
+          canvasPosX: e.changedTouches[0].x,
+          canvasPosY: e.changedTouches[0].y,
+        })
+        canvasContext.lineTo(canvasPosX, canvasPosY)
+        canvasContext.stroke()
       }
-
-      this.setData({
-        canvasPosX: e.changedTouches[0].x,
-        canvasPosY: e.changedTouches[0].y,
-      })
-      canvasContext.lineTo(canvasPosX, canvasPosY)
-      canvasContext.stroke()
     },
 
     _cancel() {
@@ -140,6 +150,7 @@ Component({
 
     // 清空画布
     _clear() {
+      moveCount = 0
       const { canvasContext, width, height } = this.data
       canvasContext.clearRect(0, 0, width, height)
 
@@ -147,6 +158,15 @@ Component({
     },
 
     _confirm() {
+      if (moveCount < 80) {
+        wx.showToast({
+          title: '签名太小，请重新签名',
+          icon: 'none',
+        })
+        this._clear()
+
+        return
+      }
       wx.canvasToTempFilePath({
         destWidth: this.data.width,
         destHeight: this.data.height,

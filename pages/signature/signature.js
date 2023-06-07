@@ -23,7 +23,7 @@ Component({
       this.toggleSignInputShow()
 
       try {
-        await this.uploadFile(e.detail)
+        // await this.uploadFile(e.detail)
         wx.showToast({
           title: '上传图片成功',
           icon: 'none',
