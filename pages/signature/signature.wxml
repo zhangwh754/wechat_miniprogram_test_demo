@@ -8,6 +8,7 @@
 <sign-input
   wx:if="{{isSignInputShow}}"
   title="签名仅用于窃电举报奖励"
+  watermarkText="工单113123, 金额8000, 其他5500"
   bind:sign-img="handleSignImg"
   bind:close="toggleSignInputShow"
 ></sign-input>

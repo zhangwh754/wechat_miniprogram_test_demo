@@ -1,8 +1,5 @@
 {
-  "pages": [
-    "pages/index/index",
-    "pages/signature/signature"
-  ],
+  "pages": ["pages/index/index", "pages/signature/signature", "pages/file/file"],
   "window": {
     "navigationStyle": "custom"
   },

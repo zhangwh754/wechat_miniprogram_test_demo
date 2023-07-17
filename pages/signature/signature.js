@@ -23,7 +23,7 @@ Component({
       this.toggleSignInputShow()
 
       try {
-        // await this.uploadFile(e.detail)
+        await this.uploadFile(e.detail)
         wx.showToast({
           title: '上传图片成功',
           icon: 'none',
@@ -39,16 +39,16 @@ Component({
     uploadFile(temImgUrl) {
       return new Promise((resolve, reject) => {
         wx.uploadFile({
-          url: 'http://192.168.10.104:3000/upload',
+          url: 'http://192.168.1.79:1337/file/upload',
           filePath: temImgUrl,
           name: 'file',
           success(res) {
             const data = JSON.parse(res.data)
 
-            if (data.code !== 200) {
-              reject(data.msg)
+            if (data.statusCode !== 200) {
+              reject(data.message)
             } else {
-              resolve(data.msg)
+              resolve(data.message)
             }
           },
           fail() {
