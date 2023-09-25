@@ -1,0 +1,72 @@
+<!--packageK/pages/chat/chat.wxml-->
+<view class="container">
+  <view class="chatGroup">
+    <!-- 对话框 -->
+    <block wx:if="{{false}}">
+      <scroll-view
+        scroll-y
+        style="height:{{ viewHeight }}rpx; "
+        scroll-with-animation="{{ isAnimation }}"
+        scroll-into-view="{{ toView }}"
+        scroll-top="{{ scrollTop }}"
+        bindscroll="scroll"
+        bindscrolltoupper="handleScroll"
+      >
+        <view class="chatWrap">
+          <!-- 提示信息等 -->
+          <!-- <view class="chatLabel auto">
+          <image class="avatar" src="{{ avatarAuto }}"></image>
+          <view class="articleBox"><text>{{ serviceMsg }}</text></view>
+        </view> -->
+
+          <view wx:for="{{ chatDataArray }}" wx:key="index">
+            <!-- 小程序端 -->
+            <view wx:if="{{item.UserType === 1}}" class="chatLabel">
+              <!-- 聊天信息 -->
+              <block wx:if="{{item.ContentType === 1}}">
+                <image class="avatar" src="{{ avatarUser }}"></image>
+                <view class="articleBox">{{ item.Content }}</view>
+              </block>
+              <!-- 文件信息 -->
+              <block wx:else>
+                <image class="avatar" src="{{ avatarUser }}"></image>
+                <view class="articleBox">{{ item.FileRealName }}</view>
+              </block>
+            </view>
+            <!-- 后台端 -->
+            <view class="chatLabel auto" wx:if="{{ item.UserType === 2 }}">
+              <!-- 聊天信息 -->
+              <block wx:if="{{item.ContentType === 1}}">
+                <image class="avatar" src="{{ avatarUser }}"></image>
+                <view class="articleBox">{{ item.Content }}</view>
+              </block>
+              <!-- 文件信息 -->
+              <block wx:else>
+                <image class="avatar" src="{{ avatarUser }}"></image>
+                <view class="articleBox">{{ item.FileRealName }}</view>
+              </block>
+            </view>
+          </view>
+        </view>
+        <view id="toFooter"></view>
+      </scroll-view>
+    </block>
+    <!-- 回复框 -->
+    <view class="chatFooterGroup" id="footerBtnGroup">
+      <view class="textInputBox">
+        <input
+          class="textInput"
+          value="{{ useMsg }}"
+          name="useMsg"
+          cursor-spacing="20"
+          placeholder="请输入"
+          placeholder-style="color:#999;"
+          bindinput="bindInputValue"
+        />
+      </view>
+      <view class="sendMsgBox">
+        <button class='sendBtn {{ !canSend ? "gray" : "" }}' bind:tap="sendMsg">发 送</button>
+      </view>
+    </view>
+  </view>
+</view>

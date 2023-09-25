@@ -1,0 +1,17 @@
+<view class="container">
+  <form bindsubmit="submitForm" class="form">
+    <block wx:for="{{ formItems }}" wx:key="index">
+      <view class="item">
+        <input value="{{ item.name }}" placeholder="Name" bindinput="inputName" data-index="{{ index }}" />
+        <button class="remove-btn" bindtap="removeFormItem" data-index="{{ index }}">-</button>
+        <block wx:for="{{ item.subItems }}" wx:key="subIndex">
+          <input value="{{ subItem }}" placeholder="Sub Item" bindinput="inputSubItem" data-index="{{ index }}" data-subindex="{{ subIndex }}" />
+          <button class="remove-btn" bindtap="removeSubItem" data-index="{{ index }}" data-subindex="{{ subIndex }}">-</button>
+        </block>
+        <button class="add-sub-btn" bindtap="addSubItem" data-index="{{ index }}">Add Sub</button>
+      </view>
+    </block>
+    <button class="add-btn" bindtap="addFormItem">Add Item</button>
+    <button class="submit-btn" form-type="submit">Submit</button>
+  </form>
+</view>

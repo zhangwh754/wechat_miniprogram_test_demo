@@ -14,6 +14,10 @@ Component({
     watermarkText: {
       type: String,
     },
+    isNeedRotate: {
+      type: Boolean,
+      value: true,
+    },
   },
 
   data: {
@@ -203,20 +207,25 @@ Component({
 
         return
       }
+
+      this.canvasToTempFilePath()
+    },
+
+    // 转换签名版canvas为临时图片
+    canvasToTempFilePath() {
       wx.canvasToTempFilePath({
         destWidth: this.data.width,
         destHeight: this.data.height,
         canvas: this.data.canvas,
         success: res => {
-          this.setData(
-            {
-              show: false,
-            },
-            () => {
-              this.data.canvasContext.clearRect(0, 0, this.data.width, this.data.height)
-              this.triggerEvent('sign-img', res.tempFilePath)
-            }
-          )
+          // 需要旋转，就先是用临时canvas旋转图片
+          if (this.properties.isNeedRotate) {
+            this.tempFilePathToCanvas(res.tempFilePath, this.data.width, this.data.height)
+          }
+          // 不需要旋转，直接发送签名图片地址
+          else {
+            this.triggerSubmit(res.tempFilePath)
+          }
         },
         fail(error) {
           console.log(error)
@@ -227,6 +236,58 @@ Component({
           })
         },
       })
+    },
+
+    // 转换临时图片为新的canvas
+    tempFilePathToCanvas(tempFilePath) {
+      const query = this.createSelectorQuery()
+      query
+        .select(`#myCanvas2`)
+        .fields({ node: true, size: true })
+        .exec(res => {
+          const canvas = res[0].node
+          const ctx = canvas.getContext('2d')
+          const img = canvas.createImage()
+          img.src = tempFilePath
+
+          img.onload = () => {
+            const { width, height } = img
+
+            // 旋转画布
+            canvas.width = height
+            canvas.height = width
+            ctx.rotate((-90 * Math.PI) / 180) // 负数表示逆时针方向旋转
+
+            // 调整绘制位置和尺寸
+            ctx.translate(-width, 0) // 水平偏移量为 -width
+            ctx.drawImage(img, 0, 0, width, height)
+
+            // 将旋转后的画布转为临时文件
+            wx.canvasToTempFilePath({
+              destWidth: height,
+              destHeight: width,
+              canvas: canvas,
+              success: res => {
+                this.triggerSubmit(res.tempFilePath)
+              },
+              fail: error => {
+                console.log(error)
+              },
+            })
+          }
+        })
+    },
+
+    triggerSubmit(imgUrl) {
+      this.setData(
+        {
+          show: false,
+        },
+        () => {
+          this.data.canvasContext.clearRect(0, 0, this.data.width, this.data.height)
+          this.triggerEvent('sign-img', imgUrl)
+        }
+      )
     },
   },
 })

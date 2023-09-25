@@ -27,3 +27,9 @@
     </view>
   </view>
 </page-container>
+
+<canvas
+  type="2d"
+  id="myCanvas2"
+  style="width: {{width}}px;height: {{height}}px;transform: translateX(-1000px);"
+></canvas>
