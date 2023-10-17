@@ -1,7 +1,7 @@
 {
   "cSpell.words": ["bindtouchmove", "bindtouchstart", "weui", "wxss"],
   "files.exclude": {
-    "miniprogram_npm": true,
+    "miniprogram_npm": false,
     ".husky": true,
     "sitemap.json": true,
     "package-lock": true,

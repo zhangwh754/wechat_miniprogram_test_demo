@@ -1,0 +1,153 @@
+/* pages/table/table.wxss */
+/* 表格容器样式 */
+.table {
+  width: 682rpx;
+  margin: 10rpx auto;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  border-bottom: none;
+
+  .table {
+    border: 1px solid #000;
+  }
+}
+
+/* 数据行样式 */
+.data-row {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+}
+
+.data-row.custom {
+  padding: 10rpx;
+  display: block;
+
+  .title {
+    margin: 0 10rpx;
+    font-weight: 800;
+    font-size: 8rpx;
+  }
+
+  .table {
+    width: auto;
+  }
+}
+
+/* 单元格样式 */
+.cell {
+  flex: 1;
+  padding: 6rpx;
+  border-left: 1px solid #ddd;
+
+  // 合并单元格（下方）
+  &.merge {
+    position: relative;
+    top: -1px;
+    background-color: #fff;
+  }
+  &.col2 {
+    flex-basis: calc(2 * (100% / 24));
+  }
+  &.col4 {
+    flex-basis: calc(4 * (100% / 24));
+  }
+  &.col8 {
+    flex-basis: calc(8 * (100% / 24));
+  }
+  &.col10 {
+    flex-basis: calc(10 * (100% / 24));
+  }
+  &.col12 {
+    flex-basis: calc(12 * (100% / 24));
+  }
+  &.col16 {
+    flex-basis: calc(16 * (100% / 24));
+  }
+  &.col20 {
+    flex-basis: calc(20 * (100% / 24));
+  }
+  &.col24 {
+    flex: 1;
+  }
+}
+
+.cell.custom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+
+  .input {
+    border-radius: 4rpx;
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 4rpx 8rpx;
+  }
+
+  .input.disabled {
+    background-color: #f2f2f2;
+    color: #999;
+  }
+}
+
+/* 最后一列的单元格样式 */
+.cell:first-child {
+  border-left: none;
+}
+
+.button {
+  padding: 2rpx 4rpx;
+  font-size: 6rpx;
+  display: inline-block;
+  text-align: center;
+  color: #ff6400;
+  border: 1px solid #ff6400;
+  border-radius: 4rpx;
+
+  &.warn {
+    color: #fff;
+    background-color: #f56c6c;
+  }
+}
+
+radio-group {
+  text,
+  radio {
+    cursor: pointer;
+  }
+}
+
+radio .wx-radio-input {
+  box-sizing: border-box;
+  margin-right: 10rpx;
+  margin-left: 2rpx;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border: 1px solid #ff6400;
+  border-radius: 50%;
+}
+radio .wx-radio-input.wx-radio-input-checked {
+  border-color: #ff6400 !important;
+  background: #fff !important;
+}
+radio .wx-radio-input.wx-radio-input-checked::before {
+  box-sizing: border-box;
+  content: '';
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  background: #ff6400;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.hidden {
+  visibility: hidden;
+}

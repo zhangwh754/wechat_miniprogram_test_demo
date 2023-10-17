@@ -2,6 +2,9 @@
   "pages": [
     "pages/index/index",
     "pages/signature/signature",
+    "pages/file/file",
+    "pages/data/data",
+    "pages/table/table",
     "pages/chat/chat",
     "pages/canvas/canvas"
   ],

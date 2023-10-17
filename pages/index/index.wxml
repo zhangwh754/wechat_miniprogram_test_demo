@@ -1,9 +1,27 @@
-<!--index.wxml-->
+<!--pages/father/father.wxml-->
 <navigation-bar background="#FFFFFF" title="首页" color="#000" />
 
 <view class="container">
-  <h2>Hello World</h2>
-  <view class="box">
-    <button bind:tap="handleTap">handleTap</button>
-  </view>
+  <view>a: {{a}}</view>
+  <button data-type="a" bind:tap="handleAdd">addA</button>
+  <view>b: {{b}}</view>
+  <button data-type="b" bind:tap="handleAdd">addB</button>
+  <view>c: {{c}}</view>
 </view>
+
+<view class="divider"></view>
+
+<form bindsubmit="handleSubmit">
+  <picker
+    name="picker1"
+    range="{{dataArr}}"
+    range-key="label"
+    value="{{dataArr[picker1].id}}"
+    data-type="picker1"
+    bindchange="bindChange"
+  >
+    <view class="picker"> 当前选择：{{dataArr[picker1].label}} </view>
+  </picker>
+
+  <button type="primary" form-type="submit">submit</button>
+</form>

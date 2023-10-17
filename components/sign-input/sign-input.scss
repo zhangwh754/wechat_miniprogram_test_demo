@@ -1,15 +1,12 @@
-/* components/sign-input/sign-input.wxss */
-
+/* components/sigin-input/sigin-input.wxss */
 .page {
   box-sizing: border-box;
   position: relative;
   display: flex;
   width: 100%;
   background-color: #fff;
-
   .canvas {
     box-sizing: border-box;
-
     flex: 1;
     border: 3px solid #ccc;
   }
@@ -20,6 +17,14 @@
     justify-content: center;
     flex-direction: column;
     width: 50px;
+    .btn-col {
+      box-sizing: border-box;
+      margin-bottom: 50px;
+      width: 135px;
+      text-align: center;
+      transform-origin: 25px 15px;
+      transform: rotate(90deg);
+    }
 
     .auto-width {
       flex: 1;
@@ -32,15 +37,6 @@
         transform-origin: 25px 15px;
         transform: rotate(90deg);
       }
-    }
-
-    .btn-col {
-      box-sizing: border-box;
-      margin: 20px 0;
-      width: 80px;
-      text-align: center;
-      transform-origin: 25px 15px;
-      transform: rotate(90deg);
     }
   }
 }

@@ -1,0 +1,295 @@
+<!--pages/table/table.wxml-->
+<navigation-bar background="#FFFFFF" title="手滑表格" color="#000" back="{{!isSignInputShow}}" />
+
+<view class="table">
+  <view class="data-row">
+    <view class="cell">
+      <label>申请类别：</label>
+      <input disabled="{{true}}" class="input disabled" value="{{formData.BusiType === 1 ? '新装业务' : '增容业务'}}" />
+    </view>
+    <view class="cell">
+      <label>用电地址：</label>
+      <input disabled="{{true}}" class="input disabled" value="{{formData.Yddz}}" />
+    </view>
+  </view>
+  <view class="data-row">
+    <view class="cell">
+      <label>用电性质、用途：</label>
+      <radio-group data-key="formData.Ydxzyt" bindchange="bindInput">
+        <label>
+          <text>工业/生产</text>
+          <radio checked="{{formData.Ydxzyt === '工业/生产'}}" value="工业/生产" />
+        </label>
+        <label>
+          <text>商业/经营</text>
+          <radio checked="{{formData.Ydxzyt === '商业/经营'}}" value="商业/经营" />
+        </label>
+      </radio-group>
+    </view>
+  </view>
+
+  <!-- 电源点和变压器 -->
+  <view class="data-row custom">
+    <block wx:if="{{formData.BusiType === 1}}">
+      <view class="title">电源要求：申请{{originArray.length}}路用电，用电总容量为0KVA</view>
+
+      <view class="table" wx:for="{{originArray}}" wx:key="index">
+        <view wx:for="{{item.arr}}" wx:for-item="subitem" wx:for-index="subindex" wx:key="subindex" class="data-row">
+          <view class="cell col2 custom {{subindex !== 0 ? 'hidden' : ''}}">
+            <view>第{{index + 1}}路</view>
+            <view wx:if="{{index === 0}}" class="button" data-type="originArray" bind:tap="addRow">添加电源点</view>
+            <view wx:else class="button warn" data-type="originArray" data-index="{{index}}" bind:tap="removeRow"
+              >移除电源点</view
+            ></view
+          >
+          <view class="cell col8">
+            <label>变压器装接容量：</label>
+            <input
+              class="input"
+              value="{{subitem.Byqzjrl}}"
+              data-key="originArray[{{index}}].arr[{{subindex}}].Byqzjrl"
+              bindinput="bindInput"
+            />
+          </view>
+          <view class="cell col8">
+            <label>台数：</label>
+            <input
+              class="input"
+              value="{{subitem.Ts}}"
+              data-key="originArray[{{index}}].arr[{{subindex}}].Ts"
+              bindinput="bindInput"
+            />
+          </view>
+          <view class="cell col2 custom">
+            <view
+              wx:if="{{subindex === 0}}"
+              class="button"
+              data-type="originArray"
+              data-subtype="arr"
+              data-index="{{index}}"
+              data-subindex="{{subindex}}"
+              bind:tap="addRow"
+              >添加变压器</view
+            >
+            <view
+              wx:else
+              class="button warn"
+              data-type="originArray"
+              data-subtype="arr"
+              data-index="{{index}}"
+              data-subindex="{{subindex}}"
+              bind:tap="removeRow"
+              >移除变压器</view
+            >
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <block wx:else>
+      <view class="title">当前电源信息：目前2路用电，用电总容量为0KVA</view>
+
+      <view class="table" wx:for="{{originArray}}" wx:key="index">
+        <view wx:for="{{item.arr}}" wx:for-item="subitem" wx:for-index="subindex" wx:key="subindex" class="data-row">
+          <view class="cell col2 custom {{subindex !== 0 ? 'hidden' : ''}}">
+            <view>第{{index + 1}}路</view>
+            <view wx:if="{{index === 0}}" class="button" data-type="originArray" bind:tap="addRow">添加电源点</view>
+            <view wx:else class="button" data-type="originArray" data-index="{{index}}" bind:tap="removeRow"
+              >移除电源点</view
+            ></view
+          >
+          <view class="cell col4 {{subindex !== 0 ? 'hidden' : ''}}">
+            <picker
+              range="{{voltageRank}}"
+              range-key="label"
+              value="{{voltageRank[item.Dydj].value}}"
+              data-key="originArray[{{index}}].Dydj"
+              bindchange="bindInput"
+            >
+              <label>电压等级：</label> <input class="input" disabled value="{{voltageRank[item.Dydj].label}}" />
+            </picker>
+          </view>
+          <view class="cell col4 {{subindex !== 0 ? 'hidden' : ''}}">
+            <label>电源编号：</label>
+            <input class="input" data-key="originArray[{{index}}].Dybh" value="{{item.Dybh}}" bindinput="bindInput" />
+          </view>
+          <view class="cell col4">
+            <label>变压器装接容量：</label>
+            <input
+              class="input"
+              data-key="originArray[{{index}}].arr[{{subindex}}].Byqzjrl"
+              value="{{subitem.Byqzjrl}}"
+              bindinput="bindInput"
+            />
+          </view>
+          <view class="cell col4">
+            <label>台数：</label>
+            <input
+              class="input"
+              data-key="originArray[{{index}}].arr[{{subindex}}].Ts"
+              value="{{subitem.Ts}}"
+              bindinput="bindInput"
+            />
+          </view>
+          <view class="cell col2 custom">
+            <view
+              wx:if="{{subindex === 0}}"
+              class="button"
+              data-type="originArray"
+              data-subtype="arr"
+              data-index="{{index}}"
+              data-subindex="{{subindex}}"
+              bind:tap="addRow"
+              >添加变压器</view
+            >
+            <view
+              wx:else
+              class="button warn"
+              data-type="originArray"
+              data-subtype="arr"
+              data-index="{{index}}"
+              data-subindex="{{subindex}}"
+              bind:tap="removeRow"
+              >移除变压器</view
+            >
+          </view>
+        </view>
+      </view>
+
+      <view class="title">增容后电源信息：目前{{improvedArray.length}}路用电，用电总容量为0KVA</view>
+
+      <view class="table" wx:for="{{improvedArray}}" wx:key="index">
+        <view wx:for="{{item.arr}}" wx:for-item="subitem" wx:for-index="subindex" wx:key="subindex" class="data-row">
+          <view class="cell col2 custom {{subindex !== 0 ? 'hidden' : ''}}">
+            <view>第{{index + 1}}路</view>
+            <view wx:if="{{index === 0}}" class="button" data-type="improvedArray" bind:tap="addRow">添加电源点</view>
+            <view wx:else class="button warn" data-type="improvedArray" data-index="{{index}}" bind:tap="removeRow"
+              >移除电源点</view
+            >
+          </view>
+          <view class="cell col4 {{subindex !== 0 ? 'hidden' : ''}}">
+            <picker
+              range="{{voltageRank}}"
+              range-key="label"
+              value="{{voltageRank[item.Dydj].value}}"
+              data-key="improvedArray[{{index}}].Dydj"
+              bindchange="bindInput"
+            >
+              <label>电压等级：</label> <input class="input" disabled value="{{voltageRank[item.Dydj].label}}" />
+            </picker>
+          </view>
+          <view class="cell col4 {{subindex !== 0 ? 'hidden' : ''}}">
+            <label>电源编号：</label>
+            <input class="input" data-key="improvedArray[{{index}}].Dybh" value="{{item.Dybh}}" bindinput="bindInput" />
+          </view>
+          <view class="cell col4">
+            <label>变压器装接容量：</label>
+            <input
+              class="input"
+              data-key="improvedArray[{{index}}].arr[{{subindex}}].Byqzjrl"
+              value="{{subitem.Byqzjrl}}"
+              bindinput="bindInput"
+            />
+          </view>
+          <view class="cell col4">
+            <label>台数：</label>
+            <input
+              class="input"
+              data-key="improvedArray[{{index}}].arr[{{subindex}}].Ts"
+              value="{{subitem.Ts}}"
+              bindinput="bindInput"
+            />
+          </view>
+          <view class="cell col2 custom">
+            <view
+              wx:if="{{subindex === 0}}"
+              class="button"
+              data-type="improvedArray"
+              data-subtype="arr"
+              data-index="{{index}}"
+              data-subindex="{{subindex}}"
+              bind:tap="addRow"
+              >添加变压器</view
+            >
+            <view
+              wx:else
+              class="button warn"
+              data-type="improvedArray"
+              data-subtype="arr"
+              data-index="{{index}}"
+              data-subindex="{{subindex}}"
+              bind:tap="removeRow"
+              >移除变压器</view
+            >
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view class="data-row">
+    <view class="cell">
+      <label>用电负荷属于：</label>
+      <radio-group data-key="formData.Ydfhsy" bindchange="bindInput">
+        <label>
+          <text>一级负荷</text>
+          <radio checked="{{formData.Ydfhsy === '一级负荷'}}" value="一级负荷" />
+        </label>
+        <label>
+          <text>二级负荷</text>
+          <radio checked="{{formData.Ydfhsy === '二级负荷'}}" value="二级负荷" />
+        </label>
+        <label>
+          <text>三级负荷</text>
+          <radio checked="{{formData.Ydfhsy === '三级负荷'}}" value="三级负荷" />
+        </label>
+      </radio-group>
+    </view>
+  </view>
+
+  <view class="data-row">
+    <view class="cell col4">日后支付</view>
+    <view class="cell col10">
+      <label>支付电费方式：</label>
+      <input class="input" value="{{formData.Rhzfdffs}}" data-key="formData.Rhzfdffs" bindinput="bindInput" />
+    </view>
+    <view class="cell col10">
+      <label>开户银行：</label>
+      <input class="input" value="{{formData.Rhkhyh}}" data-key="formData.Rhkhyh" bindinput="bindInput" />
+    </view>
+  </view>
+  <view class="data-row">
+    <view class="cell col4 merge">电费方式</view>
+    <view class="cell col10">
+      <label>账户名称：</label>
+      <input class="input" value="{{formData.Rhzhmc}}" data-key="formData.Rhzhmc" bindinput="bindInput" />
+    </view>
+    <view class="cell col10">
+      <label>银行账号：</label>
+      <input class="input" value="{{formData.Rhyhzh}}" data-key="formData.Rhyhzh" bindinput="bindInput" />
+    </view>
+  </view>
+
+  <view class="data-row">
+    <view class="cell col4">联系人</view>
+    <view class="cell col10">
+      <label>联系人：</label>
+      <input class="input" value="{{formData.Lxr}}" data-key="formData.Lxr" bindinput="bindInput" />
+    </view>
+    <view class="cell col10">
+      <label>联系电话：</label>
+      <input class="input" value="{{formData.Lxdh}}" data-key="formData.Lxdh" bindinput="bindInput" />
+    </view>
+  </view>
+  <view class="data-row">
+    <view class="cell col4 merge">信息</view>
+    <view class="cell col10">
+      <label>联系地址：</label>
+      <input class="input" value="{{formData.Lxdz}}" data-key="formData.Lxdz" bindinput="bindInput" />
+    </view>
+    <view class="cell col10">
+      <label>邮编：</label>
+      <input class="input" value="{{formData.Yb}}" data-key="formData.Yb" bindinput="bindInput" />
+    </view>
+  </view>
+</view>

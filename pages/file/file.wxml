@@ -1,0 +1,4 @@
+<!--pages/file/file.wxml-->
+<navigation-bar background="#FFFFFF" title="文件" color="#000" />
+
+<button bindtap="handleExport">handleExport</button>

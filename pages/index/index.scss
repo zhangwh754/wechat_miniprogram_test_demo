@@ -1,18 +1,13 @@
 /**index.wxss**/
 Page {
   background-color: #ccc;
-  margin: 30rpx;
 }
 
 .container {
-  color: red;
   font-size: 40rpx;
 
-  .box {
-    width: 400rpx;
-
-    button {
-      border: 1px solid red;
-    }
+  button {
+    margin: 0 30px;
+    border: 1px solid red;
   }
 }

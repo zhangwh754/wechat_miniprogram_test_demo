@@ -1,4 +1,4 @@
-<!--components/sign-input/sign-input.wxml-->
+<!--components/sigin-input/sigin-input.wxml-->
 <page-container show="{{show}}" custom-style="height: 100%;" bind:afterleave="_leave">
   <view class="page" style="height: {{height}}px;top: {{navigationBarHeight}}px">
     <canvas
@@ -27,3 +27,9 @@
     </view>
   </view>
 </page-container>
+
+<canvas
+  type="2d"
+  id="myCanvas2"
+  style="width: {{width}}px;height: {{height}}px;transform: translateX(-1000px);"
+></canvas>
