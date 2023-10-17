@@ -1,0 +1,175 @@
+/* packageK/pages/chat/chat.wxss */
+page {
+  box-sizing: border-box;
+  background: #ededed;
+}
+.top {
+  position: fixed;
+  height: 45rpx;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: red;
+}
+
+.container {
+  margin-top: 45rpx;
+  position: relative;
+  height: calc(100vh - 45rpx);
+  overflow: hidden;
+}
+.chatGroup {
+  padding-bottom: 60rpx;
+}
+.chatWrap {
+  padding: 16rpx 12.5rpx 100rpx;
+}
+
+/* 对话框 */
+.chatLabel {
+  min-height: 45rpx;
+  position: relative;
+  margin-bottom: 10rpx;
+  padding: 0 50rpx 0 33rpx;
+  overflow: hidden;
+  text-align: right;
+
+  .articleBox {
+    display: inline-block;
+    border-radius: 10rpx 0 10rpx 10rpx;
+    background: #409eff;
+    padding: 10rpx 15rpx;
+    overflow: hidden;
+    font-size: 14rpx;
+    color: #fff;
+    line-height: 19rpx;
+    min-height: 15rpx;
+    text-align: justify;
+    max-width: 210rpx;
+    word-break: break-all;
+  }
+
+  .avatar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+    width: 40rpx;
+    height: 40rpx;
+    background: lightblue;
+    overflow: hidden;
+  }
+
+  .download {
+    display: inline-block;
+    padding: 10rpx 15rpx;
+    height: 15rpx;
+    font-size: 14rpx;
+    line-height: 19rpx;
+    color: #ff6400;
+    text-decoration: underline;
+  }
+
+  .fileBox {
+    position: relative;
+    display: inline-block;
+    background: #d68910;
+    padding: 10rpx 15rpx 10rpx 40rpx;
+    font-size: 14rpx;
+    color: #fff;
+    height: 45rpx;
+    line-height: 45rpx;
+    text-align: justify;
+    word-break: break-all;
+    border-radius: 10rpx 0 10rpx 10rpx;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      margin-right: 10rpx;
+      width: 45rpx;
+      height: 45rpx;
+      background-color: lightblue;
+      // background: no-repeat url('./file.png') 45rpx 45rpx;
+    }
+  }
+
+  &.auto {
+    padding: 10rpx 25rpx 0 50rpx;
+    text-align: left;
+
+    .articleBox {
+      border-radius: 0 10rpx 10rpx 10rpx;
+      background: #fff;
+      color: #333;
+    }
+
+    .avatar {
+      right: auto;
+      left: 0;
+      border: 0.5rpx solid #eee;
+      background: lightblue;
+    }
+  }
+}
+
+/* 回复框 */
+.chatFooterGroup {
+  box-sizing: border-box;
+  background: #fff;
+  width: 100%;
+  padding: 10rpx 180rpx 10rpx 15rpx;
+  font-size: 12rpx;
+  color: #999;
+  line-height: 15rpx;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  border-top: 0.5rpx solid #eee;
+  overflow: hidden;
+
+  .textInputBox {
+    display: block;
+    padding: 10rpx 10rpx 10rpx 15rpx;
+    border-bottom: 1rpx solid #eee;
+
+    .textInput {
+      width: 100%;
+      font-size: 8rpx;
+      color: #333;
+    }
+  }
+
+  .sendMsgBox {
+    display: flex;
+    font-weight: bold;
+    text-align: center;
+    width: 150rpx;
+    height: 25rpx;
+    font-size: 16rpx;
+    color: #32a3ff;
+    line-height: 25rpx;
+    position: absolute;
+    overflow: hidden;
+    right: 10rpx;
+    top: 50%;
+    margin-top: -13rpx;
+
+    .sendBtn {
+      background: transparent;
+      color: #32a3ff;
+      padding: 0;
+      line-height: 25rpx;
+
+      &.gray {
+        color: #999;
+      }
+
+      &::after {
+        border: 0;
+      }
+    }
+  }
+}

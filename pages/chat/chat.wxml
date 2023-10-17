@@ -1,0 +1,69 @@
+<!--packageK/pages/chat/chat.wxml-->
+<view class="top"></view>
+<view class="container">
+  <view class="chatGroup">
+    <!-- 对话框 -->
+    <scroll-view
+      scroll-y
+      style="height:{{ viewHeight }}rpx; "
+      scroll-with-animation="{{ isAnimation }}"
+      scroll-into-view="{{ toView }}"
+      scroll-top="{{ scrollTop }}"
+      bindscroll="scroll"
+      bindscrolltoupper="handleScroll"
+    >
+      <view class="chatWrap">
+        <view wx:for="{{ chatDataArray }}" wx:key="index">
+          <!-- 小程序端 -->
+          <view wx:if="{{item.UserType === 1}}" class="chatLabel">
+            <!-- 聊天信息 -->
+            <block wx:if="{{item.ContentType === 1}}">
+              <view class="avatar"></view>
+              <view class="articleBox">{{ item.Content }}</view>
+            </block>
+            <!-- 文件信息 -->
+            <block wx:else>
+              <view class="avatar"></view>
+              <view class="download">文件下载</view>
+              <view class="fileBox">{{ item.FileRealName }}</view>
+            </block>
+          </view>
+          <!-- 后台端 -->
+          <view class="chatLabel auto" wx:if="{{ item.UserType === 2 }}">
+            <!-- 聊天信息 -->
+            <block wx:if="{{item.ContentType === 1}}">
+              <view class="avatar"></view>
+              <view class="articleBox">{{ item.Content }}</view>
+            </block>
+            <!-- 文件信息 -->
+            <block wx:else>
+              <view class="avatar"></view>
+              <view class="download">文件下载</view>
+              <view class="fileBox">{{ item.FileRealName }}</view>
+            </block>
+          </view>
+        </view>
+      </view>
+      <view id="toFooter"></view>
+    </scroll-view>
+    <!-- 回复框 -->
+    <view class="chatFooterGroup" id="footerBtnGroup">
+      <view class="textInputBox">
+        <input
+          class="textInput"
+          value="{{ useMsg }}"
+          name="useMsg"
+          cursor-spacing="20"
+          placeholder="请输入"
+          placeholder-style="color:#999;"
+          bindinput="bindInputValue"
+        />
+      </view>
+      <view class="sendMsgBox">
+        <button class='sendBtn {{ !canSend ? "gray" : "" }}' bind:tap="pushChatMsg">发 送</button>
+        <!-- <button class="sendBtn" bind:tap="fileUpload">文件上传</button> -->
+        <button class="sendBtn" bind:tap="pushUploadMsg">文件上传</button>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,11 +1,9 @@
 {
-  "pages": [
-    "pages/index/index",
-    "pages/signature/signature"
-  ],
+  "pages": ["pages/index/index", "pages/signature/signature", "pages/chat/chat"],
   "window": {
     "navigationStyle": "custom"
   },
+  "resizable": true,
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
     "navigation-bar": "./components/navigation-bar/navigation-bar"
