@@ -1,11 +1,17 @@
 {
-  "pages": ["pages/index/index", "pages/signature/signature", "pages/chat/chat"],
+  "pages": [
+    "pages/index/index",
+    "pages/signature/signature",
+    "pages/chat/chat",
+    "pages/canvas/canvas"
+  ],
   "window": {
     "navigationStyle": "custom"
   },
   "resizable": true,
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
-    "navigation-bar": "./components/navigation-bar/navigation-bar"
+    "navigation-bar": "./components/navigation-bar/navigation-bar",
+    "ec-canvas": "./components/ec-canvas/ec-canvas"
   }
 }
