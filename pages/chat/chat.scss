@@ -17,30 +17,17 @@
   left: 0;
   right: 0;
   z-index: 100;
-<<<<<<< HEAD
   border-top: 0.5rpx solid #eee;
   overflow: hidden;
 
   .textInputBox {
     display: block;
-=======
-  background-color: #fff;
-  border-top: 0.5rpx solid red;
-  overflow: hidden;
-
-  .textInputBox {
-    flex: 1;
->>>>>>> ce955727676cb3f8d682eab9668ac6cc0d40892d
     padding: 10rpx 10rpx 10rpx 15rpx;
     border-bottom: 1rpx solid #eee;
 
     .textInput {
       width: 100%;
-<<<<<<< HEAD
       font-size: 8rpx;
-=======
-      font-size: 14rpx;
->>>>>>> ce955727676cb3f8d682eab9668ac6cc0d40892d
       color: #333;
     }
   }

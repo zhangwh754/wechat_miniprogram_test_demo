@@ -65,13 +65,9 @@
         />
       </view>
       <view class="sendMsgBox">
-<<<<<<< HEAD
         <button class='sendBtn {{ !canSend ? "gray" : "" }}' bind:tap="pushChatMsg">发 送</button>
         <!-- <button class="sendBtn" bind:tap="fileUpload">文件上传</button> -->
         <button class="sendBtn" bind:tap="pushUploadMsg">文件上传</button>
-=======
-        <button class='sendBtn {{ !canSend ? "gray" : "" }}' bind:tap="sendMsg">发 送</button>
->>>>>>> ce955727676cb3f8d682eab9668ac6cc0d40892d
       </view>
     </view>
   </view>
